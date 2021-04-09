@@ -1,16 +1,18 @@
 // Run in 64 bit mode
 .code64
 
-// Begin the code storage section 'text'
 .section .text
+.global _main
+.type _main, @function
 
-// Define our start method as a global and function
-.global _start
-.type _start, @function
-
-_start:
-    // Move the top of the stack to the stack pointer
-	movl $stack_top, %esp
+_main:
+    // Load null into some CPU data registers
+    mov %ax, 0
+    mov %ss, %ax
+    mov %ds, %ax
+    mov %es, %ax
+    mov %fs, %ax
+    mov %gs, %ax
 
 	// Begin executing our kernel code, setup is done
 	call kernel_main

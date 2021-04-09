@@ -4,6 +4,7 @@ void kernel_main(void) {
     int i;
     for (i = 0; i < 2000; ++i) {
         *(videoMemory + (i * 2)) = 'A';
+        *(videoMemory + (i * 2) + 1) = i % 16;
     }
 
     *((char *) 0xb8000) = 'B';
