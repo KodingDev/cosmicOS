@@ -1,3 +1,5 @@
+#include "stdint.h"
+
 #ifndef COSMICOS_ASM_H
 #define COSMICOS_ASM_H
 
@@ -11,6 +13,10 @@ public:
         uint8_t ret;
         asm volatile ("inb %1, %0": "=a"(ret): "Nd"(port));
         return ret;
+    }
+
+    [[maybe_unused]] static inline void io_wait() {
+        asm volatile ("jmp 1f\n\t1:jmp 2f\n\t2:" );
     }
 };
 

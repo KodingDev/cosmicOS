@@ -23,7 +23,7 @@ add_executable(cosmicOS
         kernel/kernel/io/output/IO.cpp
         kernel/kernel/io/output/IO.h
         kernel/kernel/asm/asm.h
-        kernel/kernel/kernel.cpp)
+        kernel/kernel/kernel.cpp kernel/kernel/setup/pic/PIC.cpp kernel/kernel/setup/pic/PIC.h)
 
 target_compile_options(cosmicOS PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie)
 target_link_options(cosmicOS PRIVATE -g -Wl,-T "${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/linker.lds" -nostdlib -target x86_64-unknown-gnu -fuse-ld=lld -Wunused-parameter,-Wl,--no-pie -Wl,--no-dynamic-linker)
