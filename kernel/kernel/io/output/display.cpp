@@ -13,11 +13,11 @@ void write_character(char character, char color, int offset) {
     videoMemory[offset * 2 + 1] = color;
 }
 
-void write_string(int row, int column, char *string) {
+void write_string(int row, int column, char *string, char color) {
     int index = get_index(row, column);
-    while (*string) write_character(*string++, 0xF, index++);
+    while (*string) write_character(*string++, color, index++);
 }
 
-void clear_screen(void) {
+void clear_screen() {
     for (int i = 0; i < MAX_HEIGHT * MAX_WIDTH; i++) write_character(' ', 0, i);
 }

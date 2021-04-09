@@ -42,7 +42,7 @@ _start:
     call enable_paging
 
     // Load the global descriptor table
-    lgdt .pointer
+    lgdt .gdt_pointer
 
     // Load our code into the appropriate sector
     ljmp $0x8, $_main
@@ -62,17 +62,17 @@ stack_bottom:
 .align 8
 
 // Setup the 64 bit global descriptor table
-gdt64:
+gdt:
     .quad 0 // 0 entry
 .code_segment:
     .quad (1 << 43) | (1 << 44) | (1 << 47) | (1 << 53) | 0xF00000000FFFF
     // Here we enabled the executable flag, set the descriptor flag to data segment and enabled the present flag, then
     // enabled the 64 bit flag
 
-    .size gdt64, . - gdt64
+    .size gdt, . - gdt
 
 // Create a pointer to our GDT
-.pointer:
-    .short .pointer - gdt64
-    .long gdt64
-    .size .pointer, . - .pointer
+.gdt_pointer:
+    .short .gdt_pointer - gdt
+    .long gdt
+    .size .gdt_pointer, . - .gdt_pointer
