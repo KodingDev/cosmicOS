@@ -16,10 +16,13 @@ add_executable(cosmicOS
         ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/cpuid.S
         ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/main.S
         ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/paging.S
-        kernel/kernel/io/output/display.cpp
-        kernel/kernel/io/output/display.h
-        kernel/kernel/setup/interrupts/idt.cpp
-        kernel/kernel/setup/interrupts/idt.h
+        kernel/kernel/io/output/Display.cpp
+        kernel/kernel/io/output/Display.h
+        kernel/kernel/setup/interrupts/IDT.cpp
+        kernel/kernel/setup/interrupts/IDT.h
+        kernel/kernel/io/output/IO.cpp
+        kernel/kernel/io/output/IO.h
+        kernel/kernel/asm/asm.h
         kernel/kernel/kernel.cpp)
 
 target_compile_options(cosmicOS PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie)

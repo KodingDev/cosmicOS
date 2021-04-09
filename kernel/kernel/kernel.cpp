@@ -1,11 +1,11 @@
-#include "io/output/display.h"
-#include "setup/interrupts/idt.h"
+#include "io/output/Display.h"
+#include "setup/interrupts/IDT.h"
 
-extern "C" __attribute__((unused)) void kernel_main() {
-    idt::setup();
+extern "C" [[maybe_unused]] void kernel_main() {
+    IDT::setup();
 
-    clear_screen();
-    write_string(0, 0, (char *) "String writing test!");
+    Display::clearScreen();
+    Display::writeString(0, 0, (char *) "String writing test!");
 
     *((char *) 0xffffffffffffff) = 'A';
 }
