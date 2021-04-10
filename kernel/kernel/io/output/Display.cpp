@@ -13,11 +13,11 @@ void Display::writeCharacter(char character, char color, int offset) {
     videoMemory[offset * 2 + 1] = color;
 }
 
-[[maybe_unused]] void Display::writeString(int row, int column, char *string, char color) {
+void Display::writeString(int row, int column, const char *string, char color) {
     int index = getIndex(row, column);
     while (*string) writeCharacter(*string++, color, index++);
 }
 
-[[maybe_unused]] void Display::clearScreen() {
+void Display::clearScreen() {
     for (int i = 0; i < MAX_HEIGHT * MAX_WIDTH; i++) writeCharacter(' ', 0, i);
 }

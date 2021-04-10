@@ -2,51 +2,48 @@
 #include "../../asm/asm.h"
 #include "../../io/output/IO.h"
 
-#define PIC1        0x20        /* IO base address for master PIC */
-#define PIC2        0xA0        /* IO base address for slave PIC */
+void PIC::remap() {
+    // save masks before modification
+    uint8_t pic1_data = ASM::inb(PIC1_DATA);
+    uint8_t pic2_data = ASM::inb(PIC2_DATA);
 
-#define PIC1_COMMAND    PIC1
-#define PIC1_DATA    (PIC1+1)
-#define PIC2_COMMAND    PIC2
-#define PIC2_DATA    (PIC2+1)
-
-#define ICW1_INIT    0x10        /* Initialization - required! */
-#define ICW1_ICW4    0x01        /* ICW4 (not) needed */
-#define ICW4_8086    0x01        /* 8086/88 (MCS-80/85) mode */
-
-void PIC::remap(int offset1, int offset2) {
-    unsigned char a1, a2;
-
-    a1 = ASM::inb(PIC1_DATA);                        // Save masks
-    a2 = ASM::inb(PIC2_DATA);
-
-    IO::pwrite(PIC1_COMMAND, ICW1_INIT | ICW1_ICW4);  // Starts the initialization sequence (in cascade mode)
+    // start the initialization sequence (cascade mode)
+    IO::pwrite(PIC1_COMMAND, ICW1_INIT | ICW1_ICW4);
     IO::pwrite(PIC2_COMMAND, ICW1_INIT | ICW1_ICW4);
-    IO::pwrite(PIC1_DATA, offset1);                   // ICW2: Master PIC vector offset
-    IO::pwrite(PIC2_DATA, offset2);                   // ICW2: Slave PIC vector offset
-    IO::pwrite(PIC1_DATA,
-               4);                         // ICW3: tell Master PIC that there is a slave PIC at IRQ2 (0000 0100)
-    IO::pwrite(PIC2_DATA, 2);                         // ICW3: tell Slave PIC its cascade identity (0000 0010)
 
+    // write offsets
+    IO::pwrite(PIC1_DATA, PIC1);
+    IO::pwrite(PIC2_DATA, PIC2);
+
+    // tell master pic that there is a slave pic at irq2
+    IO::pwrite(PIC1_DATA, 4);
+
+    // tell slave pic its cascade identity
+    IO::pwrite(PIC2_DATA, 2);
+
+    // use 8086 / 68 mode
     IO::pwrite(PIC1_DATA, ICW4_8086);
     IO::pwrite(PIC2_DATA, ICW4_8086);
 
-    IO::pwrite(PIC1_DATA, a1);   // restore saved masks.
-    IO::pwrite(PIC2_DATA, a2);
+    // restore saved masks
+    IO::pwrite(PIC1_DATA, pic1_data);
+    IO::pwrite(PIC2_DATA, pic2_data);
 }
 
 void PIC::setup() {
-    remap(0x20, 0x28);
+    PIC::remap();
+    PIC::PIC1_mask(0b11111110);
+    PIC::PIC2_mask(0b11111111);
 }
 
-[[maybe_unused]] void PIC::PIC1_mask(int mask) {
+void PIC::PIC1_mask(int mask) {
     IO::pwrite(PIC1_DATA, mask);
 }
 
-[[maybe_unused]] void PIC::PIC2_mask(int mask) {
-    IO::pwrite(PIC1_DATA, mask);
+void PIC::PIC2_mask(int mask) {
+    IO::pwrite(PIC2_DATA, mask);
 }
 
-[[maybe_unused]] void PIC::sendEOI() {
+void PIC::sendEOI() {
     IO::pwrite(PIC1_COMMAND, 0x20);
 }

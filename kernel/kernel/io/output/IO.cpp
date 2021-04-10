@@ -2,7 +2,7 @@
 #include "IO.h"
 #include "../../asm/asm.h"
 
-void IO::pwrite(uint16_t port, uint8_t value) {
+void IO::comWrite(uint16_t port, uint8_t value) {
     // Wait until the output buffer is flushed
     while (!(ASM::inb(port + 5) & 0b100000));
 
@@ -10,8 +10,13 @@ void IO::pwrite(uint16_t port, uint8_t value) {
     ASM::outb(port, value);
 }
 
+void IO::pwrite(uint16_t port, uint8_t value) {
+    ASM::pwait();
+    ASM::outb(port, value);
+}
+
 void IO::print(char *string) {
-    while (*string) pwrite(IO::COM1, *string++);
+    while (*string) comWrite(IO::COM1, *string++);
 }
 
 void IO::println(char *string) {

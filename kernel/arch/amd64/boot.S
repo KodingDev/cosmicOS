@@ -22,6 +22,7 @@
 .section .text
 .type _start, @function
 .global _start
+.global halt
 
 .extern _main
 .extern check_cpuid
@@ -45,9 +46,17 @@ _start:
     lgdt .gdt_pointer
 
     // Load our code into the appropriate sector
+.att_syntax prefix
     ljmp $0x8, $_main
+.intel_syntax noprefix
+
+    call halt
 
 .size _start, . - _start
+
+halt:
+1:  hlt
+    jmp 1b
 
 .section .bss
 .align 4096

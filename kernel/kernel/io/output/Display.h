@@ -8,9 +8,9 @@ class Display {
 public:
     static void writeCharacter(char character, char color, int index);
 
-    [[maybe_unused]] static void writeString(int row, int column, char *string, char color = TEXT_WHITE);
+    static void writeString(int row, int column, const char *string, char color = TEXT_WHITE);
 
-    [[maybe_unused]] static void clearScreen();
+    static void clearScreen();
 };
 
 #endif //COSMICOS_DISPLAY_H

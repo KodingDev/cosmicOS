@@ -2,13 +2,11 @@ ENTRY(_start)
 
 SECTIONS {
     . = 1M;
-    _loeader_start = .;
+    _loader_start = .;
 
-    .headers ALIGN(4K) : ALIGN(16) {
-        KEEP(*(.headers))
-     }
-
+    .headers ALIGN(4K) : ALIGN(16) { KEEP(*(.headers)) }
     .text ALIGN(4K) : { *(.text .text.*) }
+    .data ALIGN(4K) : { *(.data .data.*) }
 
     .rodata ALIGN(4K) : {
         __CTOR_LIST__ = .;
