@@ -11,11 +11,11 @@ public:
     [[maybe_unused]] static constexpr uint8_t TRAP_GATE = 0xF;
 
     struct Frame {
-        [[maybe_unused]] size_t ip;
-        [[maybe_unused]] size_t cs;
+        [[maybe_unused]] size_t instructionPointer;
+        [[maybe_unused]] size_t codeSegment;
         [[maybe_unused]] size_t flags;
-        [[maybe_unused]] size_t sp;
-        [[maybe_unused]] size_t ss;
+        [[maybe_unused]] size_t stackPointer;
+        [[maybe_unused]] size_t stackSegment;
     };
 
     static void setup();

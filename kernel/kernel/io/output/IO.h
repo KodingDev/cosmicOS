@@ -11,9 +11,13 @@ public:
 
     static void pwrite(uint16_t port, uint8_t value);
 
-    static void print(char *string);
+    static void putChar(char c);
 
-    static void println(char *string);
+    static void print(const char *string);
+
+    static void println(const char *string);
+
+    [[maybe_unused]] static void printf(const char *format, ...);
 };
 
 #endif //COSMICOS_IO_H

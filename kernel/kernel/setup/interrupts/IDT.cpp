@@ -8,19 +8,18 @@ IDT::Descriptor IDT::data[256];
 
 _Noreturn __attribute__ ((interrupt)) void interruptDoubleFault([[maybe_unused]] IDT::Frame *frame) {
     Display::clearScreen();
-    Display::writeString(0, 0, (char *) "Double fault! Halting!", TEXT_LIGHT_RED);
+    Display::writeString(0, 0, "Double fault! Halting!", TEXT_LIGHT_RED);
     ASM::halt();
 }
 
 _Noreturn __attribute__ ((interrupt)) void interruptProtectionFault([[maybe_unused]] IDT::Frame *frame) {
     Display::clearScreen();
-    Display::writeString(0, 0, (char *) "General protection fault! Halting!", TEXT_LIGHT_RED);
+    Display::writeString(0, 0, "General protection fault! Halting!", TEXT_LIGHT_RED);
     ASM::halt();
 }
 
-
 void IDT::setup() {
-    IO::println((char *) "[IDT] Setting up IDT");
+    IO::println("[IDT] Setting up IDT");
 
     registerExceptionHandler(0x8, interruptDoubleFault);
     registerExceptionHandler(0xD, interruptProtectionFault);
@@ -29,7 +28,7 @@ void IDT::setup() {
     ASM::lidt(sizeof(*data) * 256, (unsigned long) &data[0]);
     ASM::sti();
 
-    IO::println((char *) "[IDT] IDT configured!");
+    IO::println("[IDT] IDT configured!");
 }
 
 void IDT::registerExceptionHandler(uint8_t index, void (*handler)(IDT::Frame *)) {

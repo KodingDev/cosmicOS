@@ -21,6 +21,8 @@ add_executable(cosmicOS
         kernel/kernel/setup/pic/PIC.h
         kernel/kernel/util/timer/Timer.cpp
         kernel/kernel/util/timer/Timer.h
+        kernel/kernel/util/std/String.cpp
+        kernel/kernel/util/std/String.h
         kernel/kernel/kernel.cpp)
 
 target_compile_options(cosmicOS PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie)
