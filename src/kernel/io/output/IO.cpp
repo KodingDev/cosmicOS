@@ -46,11 +46,15 @@ void IO::println(const char *string) {
                     break;
                 case 'd':
                 case 'i':
-                    print(String::intToString(va_arg(args, int), 10));
+                    print(toString(va_arg(args, int)));
+                    break;
+                case 'l':
+                    print(toString(va_arg(args, long)));
                     break;
                 case 'c':
                     putChar(va_arg(args, int));
                     break;
+
                 case 's':
                     print(va_arg(args, char*));
                     break;

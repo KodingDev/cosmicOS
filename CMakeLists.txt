@@ -21,7 +21,6 @@ add_executable(cosmicOS
         src/kernel/setup/pic/PIC.h
         src/kernel/util/timer/Timer.cpp
         src/kernel/util/timer/Timer.h
-        src/kernel/util/std/String.cpp
         src/kernel/util/std/String.h
         src/kernel/setup/panic/Panic.cpp
         src/kernel/setup/panic/Panic.h

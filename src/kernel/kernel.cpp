@@ -3,7 +3,6 @@
 #include "util/timer/Timer.h"
 #include "asm/asm.h"
 #include "io/output/IO.h"
-#include "io/output/Display.h"
 
 extern "C" {
 extern void (*__CTOR_LIST__)(); // NOLINT(bugprone-reserved-identifier)
@@ -19,7 +18,7 @@ extern void (*__CTOR_LIST__)(); // NOLINT(bugprone-reserved-identifier)
     PIC::setup();
     Timer::setup();
 
-//    ASM::doubleFault();
+    ASM::doubleFault();
     ASM::halt();
 }
 }

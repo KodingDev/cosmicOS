@@ -15,9 +15,16 @@ void Panic::displayPanic(const char *message, ...) {
 
     Display::clearScreen();
     Display::writeString(0, 0, "SYSTEM ERROR!", TEXT_LIGHT_RED);
-
     IO::printf(message, args);
-    ASM::halt();
+
+    struct StackFrame *stk;
+    asm volatile("mov %%rbp, %0" : "=r" (stk));
+    IO::println("stack trace:");
+    for (unsigned int frame = 0; stk && frame < 5; ++frame) {
+        IO::printf("  0x%l\n", stk->eip);
+        stk = stk->ebp;
+    }
 
     va_end(args);
+    ASM::halt();
 }
