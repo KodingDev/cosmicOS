@@ -1,4 +1,4 @@
-![Logo](https://repository-images.githubusercontent.com/356514782/cebb5700-9b13-11eb-9e49-d931d476eaa1)
+![Logo](https://i.imgur.com/6lVIRQw.png)
 
 # 🚀 cosmicOS
 A kernel from the cosmos.
