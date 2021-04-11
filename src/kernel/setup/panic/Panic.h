@@ -3,7 +3,7 @@
 
 class Panic {
 public:
-    static void displayPanic(const char *message);
+    static void displayPanic(const char *message, ...);
 };
 
 #endif //COSMICOS_PANIC_H

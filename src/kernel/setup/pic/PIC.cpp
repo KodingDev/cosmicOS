@@ -31,9 +31,11 @@ void PIC::remap() {
 }
 
 void PIC::setup() {
+    IO::println("[PIC] Configuring PIC (Programmable Interrupt Controller)");
     PIC::remap();
     PIC::PIC1_mask(0b11111110);
     PIC::PIC2_mask(0b11111111);
+    IO::println("[PIC] PIC configured");
 }
 
 void PIC::PIC1_mask(int mask) {

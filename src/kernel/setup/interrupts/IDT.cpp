@@ -16,7 +16,7 @@ __attribute__ ((interrupt)) void interruptProtectionFault([[maybe_unused]] IDT::
 }
 
 void IDT::setup() {
-    IO::println("[IDT] Setting up IDT");
+    IO::println("[IDT] Setting up IDT (Interrupt Descriptor Table)");
 
     registerExceptionHandler(0x8, interruptDoubleFault);
     registerExceptionHandler(0xD, interruptProtectionFault);

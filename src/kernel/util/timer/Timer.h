@@ -7,7 +7,7 @@ class Timer {
 public:
     static void setup(int hz = HERTZ);
 
-    static void sleep(int ms);
+    [[maybe_unused]] static void sleep(int ms);
 
     __attribute__((interrupt))
     static void interrupt([[maybe_unused]] IDT::Frame *frame);

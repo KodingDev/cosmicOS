@@ -28,6 +28,10 @@ public:
         asm volatile("sti");
     }
 
+    static inline void cli() {
+        asm volatile("cli");
+    }
+
     [[noreturn]] static inline void halt() {
         while (true) asm volatile("hlt");
     }
