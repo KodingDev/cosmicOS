@@ -6,25 +6,27 @@ set(CMAKE_CXX_STANDARD 20)
 set(KERNEL_ARCH amd64)
 
 add_executable(cosmicOS
-        ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/boot.S
-        ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/cpuid.S
-        ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/main.S
-        ${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/paging.S
-        kernel/kernel/io/output/Display.cpp
-        kernel/kernel/io/output/Display.h
-        kernel/kernel/setup/interrupts/IDT.cpp
-        kernel/kernel/setup/interrupts/IDT.h
-        kernel/kernel/io/output/IO.cpp
-        kernel/kernel/io/output/IO.h
-        kernel/kernel/asm/asm.h
-        kernel/kernel/setup/pic/PIC.cpp
-        kernel/kernel/setup/pic/PIC.h
-        kernel/kernel/util/timer/Timer.cpp
-        kernel/kernel/util/timer/Timer.h
-        kernel/kernel/util/std/String.cpp
-        kernel/kernel/util/std/String.h
-        kernel/kernel/kernel.cpp)
+        src/arch/${KERNEL_ARCH}/boot.S
+        src/arch/${KERNEL_ARCH}/cpuid.S
+        src/arch/${KERNEL_ARCH}/main.S
+        src/arch/${KERNEL_ARCH}/paging.S
+        src/kernel/io/output/Display.cpp
+        src/kernel/io/output/Display.h
+        src/kernel/setup/interrupts/IDT.cpp
+        src/kernel/setup/interrupts/IDT.h
+        src/kernel/io/output/IO.cpp
+        src/kernel/io/output/IO.h
+        src/kernel/asm/asm.h
+        src/kernel/setup/pic/PIC.cpp
+        src/kernel/setup/pic/PIC.h
+        src/kernel/util/timer/Timer.cpp
+        src/kernel/util/timer/Timer.h
+        src/kernel/util/std/String.cpp
+        src/kernel/util/std/String.h
+        src/kernel/setup/panic/Panic.cpp
+        src/kernel/setup/panic/Panic.h
+        src/kernel/kernel.cpp)
 
 target_compile_options(cosmicOS PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie)
-target_link_options(cosmicOS PRIVATE -g -Wl,-T "${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/linker.lds" -nostdlib -target x86_64-unknown-gnu -fuse-ld=lld -Wunused-parameter,-Wl,--no-pie -Wl,--no-dynamic-linker)
-set_target_properties(cosmicOS PROPERTIES LINK_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/kernel/arch/${KERNEL_ARCH}/linker.lds")
+target_link_options(cosmicOS PRIVATE -g -Wl,-T "${CMAKE_CURRENT_LIST_DIR}/src/arch/${KERNEL_ARCH}/linker.lds" -nostdlib -target x86_64-unknown-gnu -fuse-ld=lld -Wunused-parameter,-Wl,--no-pie -Wl,--no-dynamic-linker)
+set_target_properties(cosmicOS PROPERTIES LINK_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/arch/${KERNEL_ARCH}/linker.lds")
