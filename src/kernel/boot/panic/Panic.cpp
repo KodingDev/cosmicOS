@@ -15,7 +15,21 @@ void Panic::displayPanic(const char *message, ...) {
 
     Display::clearScreen();
     Display::writeString(0, 0, "SYSTEM ERROR!", TEXT_LIGHT_RED);
-    IO::printf(message, args);
+
+    IDT::Frame frame = va_arg(args, IDT::Frame);
+    IO::printf("!!! Kernel Panic !!!\n"
+               "type: %s\n"
+               "instruction pointer: %l\n"
+               "code segment: %l\n"
+               "flags: %l\n"
+               "stack pointer: %l\n"
+               "stack segment: %l\n",
+               message,
+               frame.instructionPointer,
+               frame.codeSegment,
+               frame.flags,
+               frame.stackPointer,
+               frame.stackSegment);
 
     struct StackFrame *stk;
     asm volatile("mov %%rbp, %0" : "=r" (stk));

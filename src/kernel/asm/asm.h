@@ -1,5 +1,5 @@
 #include "stdint.h"
-#include "../setup/interrupts/IDT.h"
+#include "../boot/interrupts/IDT.h"
 
 #ifndef COSMICOS_ASM_H
 #define COSMICOS_ASM_H

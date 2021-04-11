@@ -1,7 +1,7 @@
 #ifndef COSMICOS_TIMER_H
 #define COSMICOS_TIMER_H
 
-#include "../../setup/interrupts/IDT.h"
+#include "../../boot/interrupts/IDT.h"
 
 class Timer {
 public:

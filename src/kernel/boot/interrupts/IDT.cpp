@@ -6,28 +6,12 @@
 
 IDT::Descriptor IDT::data[256];
 
-void handleFault(const char *header, IDT::Frame *frame) {
-    Panic::displayPanic("!!! Kernel Panic !!!\n"
-                        "type: %s\n"
-                        "instruction pointer: %l\n"
-                        "code segment: %l\n"
-                        "flags: %l\n"
-                        "stack pointer: %l\n"
-                        "stack segment: %l\n",
-                        header,
-                        frame->instructionPointer,
-                        frame->codeSegment,
-                        frame->flags,
-                        frame->stackPointer,
-                        frame->stackSegment);
-}
-
 __attribute__ ((interrupt)) void interruptDoubleFault([[maybe_unused]] IDT::Frame *frame) {
-    handleFault("Double fault", frame);
+    Panic::displayPanic("Double fault", frame);
 }
 
 __attribute__ ((interrupt)) void interruptProtectionFault([[maybe_unused]] IDT::Frame *frame) {
-    handleFault("General protection fault", frame);
+    Panic::displayPanic("General protection fault", frame);
 }
 
 void IDT::setup() {

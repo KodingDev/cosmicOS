@@ -1,7 +1,7 @@
 #include "Timer.h"
 #include "../../io/output/IO.h"
-#include "../../setup/interrupts/IDT.h"
-#include "../../setup/pic/PIC.h"
+#include "../../boot/interrupts/IDT.h"
+#include "../../boot/pic/PIC.h"
 #include "../../asm/asm.h"
 
 #pragma clang diagnostic push

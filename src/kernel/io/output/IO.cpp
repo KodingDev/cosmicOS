@@ -41,23 +41,27 @@ void IO::println(const char *string) {
             format++;
 
             switch (*format++) {
-                case '%':
+                case '%': {
                     putChar('%');
                     break;
+                }
                 case 'd':
-                case 'i':
+                case 'i': {
                     print(toString(va_arg(args, int)));
                     break;
-                case 'l':
+                }
+                case 'l': {
                     print(toString(va_arg(args, long)));
                     break;
-                case 'c':
+                }
+                case 'c': {
                     putChar(va_arg(args, int));
                     break;
-
-                case 's':
-                    print(va_arg(args, char*));
+                }
+                case 's': {
+                    print(va_arg(args, const char*));
                     break;
+                }
             }
         } else IO::putChar(*format++);
     }
